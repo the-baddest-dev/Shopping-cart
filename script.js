@@ -12,10 +12,10 @@ function addItem(){
     cart.push(userInput)
     console.log(userInput);
     document.getElementById('displayArea').innerHTML = ''
+    document.getElementById('input').value = ''
     
     for (let index = 0; index < cart.length; index++) {
       display.innerHTML += `<p>${index+1}. ${cart[index]}</p>`
-      document.getElementById('input').value = ''
     }
   }
 }

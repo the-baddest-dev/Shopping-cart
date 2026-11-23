@@ -1,50 +1,59 @@
 // alert('It is connected!')
 
-cart = []
+let cart = [];
 
-function addItem(){
-  let userInput = document.getElementById('input').value
-  let renameUserInuput = userInput.charAt(0).toUpperCase()+ userInput.slice(1).toLowerCase()
-  
-  let display = document.getElementById('displayArea')
+let display = document.getElementById("displayArea");
+let userInput = document.getElementById("input").value;
+let result = userInput.charAt(0).toUpperCase() + userInput.slice(1).toLowerCase();
 
-  if (renameUserInuput.trim() == ''){
-    alert('Input should not be empty!')
-  } else if (!isNaN(renameUserInuput)){
-    alert('Do not input numbers')
-  }else{
-    cart.push(renameUserInuput)
-    console.log(renameUserInuput);
-    document.getElementById('displayArea').innerHTML = ''
-    document.getElementById('input').value = ''
-    
-    for (let index = 0; index < cart.length; index++) {
-      display.innerHTML += `<p>${index+1}. ${cart[index]}</p>`
-    }
+function addItem() {
+  let userInput = document.getElementById("input").value;
+  let result = userInput.charAt(0).toUpperCase() + userInput.slice(1).toLowerCase();
+
+  if (result.trim() == "") {
+    alert("Input should not be empty!");
+  } else {
+    cart.push(result);
+    document.getElementById("input").value = "";
+    common();
   }
 }
 
 function deleteOne(){
-  let display = document.getElementById('displayArea')
-
-  if (display == ''){
+  if(cart.length == 0){
     alert('There is nothing to delete!')
   } else{
-    cart.pop(cart) 
-    console.log(cart);
+    cart.pop(result)
+    common()
 
-    display.innerHTML = ''
-    for (let index = 0; index < cart.length; index++) {
-      display.innerHTML += `<p>${index+1}. ${cart[index]}</p>`
-      
+    if(cart.length == 0){
+      display.innerHTML = `<span>Your result will show here</span>`
     }
   }
 }
 
 function deleteAll(){
-  let display = document.getElementById('displayArea')
+  if (cart.length == 0){
+    alert('There is nothing to delete!')
+  } else{
+    // cart.splice(0, cart.length)
+    cart.length = 0
+    common()
 
-  cart.splice(0,cart.length)
-  console.log(cart);
-  display.innerHTML = cart
+    if (cart.length = 0){
+      display.innerHTML = `<span>Your result will show here</span>`
+    }
+  }
+}
+
+function common() {
+  document.getElementById("displayArea").innerHTML = "";
+  for (let index = 0; index < cart.length; index++) {
+    display.innerHTML += `<span class="d-flex flex-column gap-5">${index + 1}. ${cart[index]}</span> <button class="btn btn btn-primary" onclick="removeItem(${index})">Delete Item</button> <br> <br>`;
+  }
+}
+
+function removeItem(i){
+  cart.splice(i, 1)
+  common()
 }
